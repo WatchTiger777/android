@@ -13,7 +13,7 @@ public class Edit extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit);
+        setContentView(R.layout.activity_add);
         Button buttonYes=findViewById(R.id.button1);
         Button buttonNo=findViewById(R.id.button2);
         buttonYes.setOnClickListener(new View.OnClickListener(){
@@ -30,16 +30,15 @@ public class Edit extends AppCompatActivity {
                 //intent返回数据给主acitivity
                 yesIntent.putExtra("title",textView_title.getText().toString());
                 yesIntent.putExtra("author",textView_author.getText().toString());
-                yesIntent.putExtra("Translator",textView_translator.getText().toString());
-                yesIntent.putExtra("Publisher",textView_publisher.getText().toString());
-                yesIntent.putExtra("Year",textView_year.getText().toString());
-                yesIntent.putExtra("Month",textView_month.getText().toString());
-                yesIntent.putExtra("ISBN",textView_isbn.getText().toString());
-                Toast.makeText(Edit.this,"按钮被点击了", Toast.LENGTH_SHORT).show();
-                setResult(RESULT_OK,yesIntent);
+                yesIntent.putExtra("translator",textView_translator.getText().toString());
+                yesIntent.putExtra("publisher",textView_publisher.getText().toString());
+                yesIntent.putExtra("year",textView_year.getText().toString());
+                yesIntent.putExtra("month",textView_month.getText().toString());
+                yesIntent.putExtra("isbn",textView_isbn.getText().toString());
+                Toast.makeText(Edit.this,"编辑成功", Toast.LENGTH_SHORT).show();
+                yesIntent.setClass(Edit.this,MainActivity.class);
+                Edit.this.setResult(0,yesIntent);
                 startActivity(yesIntent);
-                setContentView(R.layout.activity_main);
-                Edit.this.finish();
 
 
             }
@@ -48,11 +47,11 @@ public class Edit extends AppCompatActivity {
         buttonNo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                setContentView(R.layout.activity_main);
                 Edit.this.finish();
             }
         });
 
 
-        }
+
     }
+}

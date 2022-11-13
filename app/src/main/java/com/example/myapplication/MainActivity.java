@@ -34,8 +34,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case 1:
+                Intent gotoEdit = new Intent();
+                gotoEdit.setClass(MainActivity.this,Edit.class);
+                startActivity(gotoEdit);
+
                 break;
             case 2:
+
                 break;
             default:
                 break;
