@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.nio.channels.InterruptedByTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +70,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mRecyclerView = findViewById(R.id.recyclerview);
+
+        //右下角添加按钮
+        ImageButton imageButton = findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+                                           @Override
+                                           public void onClick(View view) {
+                                               //跳转到新建页面
+                                               Intent gotoEdit = new Intent();
+                                               gotoEdit.setClass(MainActivity.this,Edit.class);
+                                               startActivity(gotoEdit);
+                                           }
+                                       });
         // 构造一些数据
         for (int i = 0; i < 50; i++) {
             News news = new News();
@@ -82,25 +96,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
     }
 
-    //右下角添加按钮
-    public class ButtonActivity extends AppCompatActivity implements View.OnClickListener {
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            //setContentView(R.layout.activity_main);
-            ImageButton button=findViewById(R.id.imageButton);
-            button.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            if (view.getId() == R.id.imageButton) {
-                setContentView(R.layout.activity_edit);
-                MainActivity.this.finish();
-            }
-        }
-    }
 
     //长按
     class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHoder> {
@@ -137,14 +133,12 @@ public class MainActivity extends AppCompatActivity {
             TextView mTitleTv;
             TextView mTitleContent;
             ImageView mTitlePng;
-            ImageButton addbutton;
 
             public MyViewHoder(@NonNull View itemView) {
                 super(itemView);
                 mTitleTv = itemView.findViewById(R.id.textView);
                 mTitleContent = itemView.findViewById(R.id.textView2);
                 mTitlePng = itemView.findViewById(R.id.imageView);
-                addbutton = itemView.findViewById(R.id.imageButton);
                 itemView.setOnCreateContextMenuListener(this);
             }
 
