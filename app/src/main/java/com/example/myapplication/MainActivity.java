@@ -77,19 +77,26 @@ public class MainActivity extends AppCompatActivity {
                                            @Override
                                            public void onClick(View view) {
                                                //跳转到新建页面
+                                               //setContentView(R.layout.activity_add);
                                                Intent gotoEdit = new Intent();
-                                               gotoEdit.setClass(MainActivity.this,Edit.class);
+                                               gotoEdit.setClass(MainActivity.this,Add.class);
                                                startActivity(gotoEdit);
                                            }
                                        });
+        //接受来自imageButoon即Add的数据
+        News news = new News();
+        news.getmessage(this.getIntent());
+        mNewsList.add(news);
         // 构造一些数据
+        /*
         for (int i = 0; i < 50; i++) {
             News news = new News();
             news.title = "标题" + i;
             news.content = "内容" + i;
             news.pngId= R.drawable.ic_launcher_foreground;
-            mNewsList.add(news);
         }
+
+         */
         mMyAdapter = new MyAdapter(mNewsList,this);
         mRecyclerView.setAdapter(mMyAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
@@ -120,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull MyViewHoder holder, int position) {
             News news = mNewsList.get(position);
             holder.mTitleTv.setText(news.title);
-            holder.mTitleContent.setText(news.content);
+            holder.mTitleContent.setText(news.author);
             holder.mTitlePng.setImageResource(news.pngId);
         }
 

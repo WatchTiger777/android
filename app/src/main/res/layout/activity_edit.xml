@@ -11,28 +11,29 @@
         android:layout_width="71dp"
         android:layout_height="48dp"
         android:layout_marginStart="96dp"
-        android:layout_marginTop="188dp"
+        android:layout_marginTop="-8dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/textView16"
-        app:layout_constraintTop_toTopOf="@+id/textView16" />
+        app:layout_constraintTop_toTopOf="@+id/textView12" />
 
     <EditText
         android:id="@+id/editTextTextPassword6"
         android:layout_width="67dp"
         android:layout_height="48dp"
         android:layout_marginStart="184dp"
-        android:layout_marginTop="188dp"
+        android:layout_marginTop="-8dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/textView16"
-        app:layout_constraintTop_toTopOf="@+id/textView16" />
+        app:layout_constraintTop_toTopOf="@+id/textView12" />
 
     <EditText
         android:id="@+id/editTextTextPassword1"
         android:layout_width="174dp"
         android:layout_height="48dp"
         android:layout_marginStart="48dp"
+        android:layout_marginTop="-8dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintStart_toEndOf="@+id/textView16"
@@ -43,40 +44,40 @@
         android:layout_width="174dp"
         android:layout_height="48dp"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="236dp"
+        android:layout_marginTop="-8dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/textView16"
-        app:layout_constraintTop_toTopOf="@+id/textView16" />
+        app:layout_constraintTop_toTopOf="@+id/textView11" />
 
     <EditText
         android:id="@+id/editTextTextPassword4"
         android:layout_width="174dp"
         android:layout_height="48dp"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="-8dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/textView16"
-        app:layout_constraintTop_toTopOf="@+id/textView16" />
+        app:layout_constraintTop_toTopOf="@+id/textView13" />
 
     <EditText
         android:id="@+id/editTextTextPassword2"
         android:layout_width="174dp"
         android:layout_height="48dp"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="-8dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/textView16"
-        app:layout_constraintTop_toTopOf="@+id/textView16" />
+        app:layout_constraintTop_toTopOf="@+id/textView15" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="364dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="8dp"
         android:text="确认"
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -95,6 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:textSize="16sp"
         android:text="ISBN"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -104,6 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
+        android:textSize="16sp"
         android:text="PublishDate"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -113,6 +116,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:textSize="16sp"
         android:text="Publisher"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
@@ -122,6 +126,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
+        android:textSize="16sp"
         android:text="Translator"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
@@ -132,6 +137,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         android:text="Author"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -141,6 +147,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="60dp"
+        android:textSize="16sp"
         android:text="Title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -150,10 +157,10 @@
         android:layout_width="174dp"
         android:layout_height="48dp"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="-8dp"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="@+id/textView16"
-        app:layout_constraintTop_toTopOf="@+id/textView16" />
+        app:layout_constraintTop_toTopOf="@+id/textView14" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
