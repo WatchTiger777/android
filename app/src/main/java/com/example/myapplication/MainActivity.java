@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -13,8 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +82,27 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
     }
 
+    //右下角添加按钮
+    public class ButtonActivity extends AppCompatActivity implements View.OnClickListener {
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            //setContentView(R.layout.activity_main);
+            ImageButton button=findViewById(R.id.imageButton);
+            button.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == R.id.imageButton) {
+                setContentView(R.layout.activity_edit);
+                MainActivity.this.finish();
+            }
+        }
+    }
+
+    //长按
     class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHoder> {
 
         private int position;
@@ -112,12 +137,14 @@ public class MainActivity extends AppCompatActivity {
             TextView mTitleTv;
             TextView mTitleContent;
             ImageView mTitlePng;
+            ImageButton addbutton;
 
             public MyViewHoder(@NonNull View itemView) {
                 super(itemView);
                 mTitleTv = itemView.findViewById(R.id.textView);
                 mTitleContent = itemView.findViewById(R.id.textView2);
                 mTitlePng = itemView.findViewById(R.id.imageView);
+                addbutton = itemView.findViewById(R.id.imageButton);
                 itemView.setOnCreateContextMenuListener(this);
             }
 
