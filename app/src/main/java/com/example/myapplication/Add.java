@@ -28,6 +28,7 @@ public class Add extends AppCompatActivity {
                 TextView textView_month = findViewById(R.id.editTextTextPassword6);
                 TextView textView_isbn = findViewById(R.id.editTextTextPassword7);
                 //intent返回数据给主acitivity
+                yesIntent.putExtra("button",3);
                 yesIntent.putExtra("title",textView_title.getText().toString());
                 yesIntent.putExtra("author",textView_author.getText().toString());
                 yesIntent.putExtra("translator",textView_translator.getText().toString());

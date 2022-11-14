@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">booklist</string>
+    <string name="bookData">/data/user/0/com.example.myapplication/files/bookData</string>
 </resources>
