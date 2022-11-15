@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -31,27 +32,35 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     MyAdapter mMyAdapter ;
+    public static int nowposition = 0;
     //静态类变量
     static List<News> mNewsList = new ArrayList<>();
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            //edit
             case 1:
-                Intent gotoEdit = new Intent();
+                Intent gotoEdit = new News().sendmessage(mNewsList.get(nowposition));
                 gotoEdit.setClass(MainActivity.this,Edit.class);
                 startActivity(gotoEdit);
 
                 break;
                 //
-            //目前还只是清空
             case 2:
-                mNewsList=new ArrayList<News>();
+                mNewsList.remove(nowposition);
                 save();
                 //reload();
                 finish();
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+                break;
+            case 3:
+                mNewsList.clear();
+                save();
+                finish();
+                Intent intent1 = new Intent(this, MainActivity.class);
+                startActivity(intent1);
                 break;
             default:
                 break;
@@ -150,12 +159,12 @@ public class MainActivity extends AppCompatActivity {
             //edit
             case 1:
                 news.getmessage(receiveButton);
-                mNewsList.add(news);
+                mNewsList.set(nowposition,news);
                 save();
                 break;
             //delete
             case 2:
-                mNewsList=new ArrayList<News>();
+                mNewsList.remove(nowposition);
                 save();
                 break;
             //add
@@ -208,11 +217,24 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
+        public void onViewRecycled(@NonNull MyViewHoder holder) {
+            holder.itemView.setOnLongClickListener(null);
+            super.onViewRecycled(holder);
+        }
+
+        @Override
         public void onBindViewHolder(@NonNull MyViewHoder holder, int position) {
             News news = mNewsList.get(position);
             holder.mTitleTv.setText(news.title);
             holder.mTitleContent.setText(news.author);
             holder.mTitlePng.setImageResource(news.pngId);
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    setContextMenuPosition(holder.getLayoutPosition());
+                    return false;
+                }
+            });
         }
 
         @Override
@@ -235,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+                nowposition = getContextMenuPosition();
                 //注意传入的menuInfo为null
                 News mSelectModelUser = mNewsList.get(getContextMenuPosition());
                 Log.i("UserAdapter", "onCreateContextMenu: "+getContextMenuPosition());

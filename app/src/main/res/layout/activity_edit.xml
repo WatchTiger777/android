@@ -159,7 +159,7 @@
         android:layout_marginStart="76dp"
         android:layout_marginTop="-8dp"
         android:ems="10"
-        android:inputType="textPassword"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toTopOf="@+id/textView14" />
 

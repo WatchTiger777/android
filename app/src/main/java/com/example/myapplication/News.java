@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.widget.Toast;
 
 public class News {
     public String title;
@@ -23,5 +24,23 @@ public class News {
         this.isbn = intent.getStringExtra("isbn");
         
     }
+
+    public Intent sendmessage(News temp)
+    {
+        Intent go = new Intent();
+        go.putExtra("button",3);
+        go.putExtra("title",temp.title);
+        go.putExtra("author",temp.author);
+        go.putExtra("translator",temp.translator);
+        go.putExtra("publisher",temp.publisher);
+        go.putExtra("year",temp.year);
+        go.putExtra("month",temp.month);
+        go.putExtra("isbn",temp.isbn);
+        //Toast.makeText(Add.this,"新建成功", Toast.LENGTH_SHORT).show();
+        //go.setClass(Add.this,MainActivity.class);
+        //temp.getmessage(go);
+        return go;
+    }
+
     
 }
