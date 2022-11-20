@@ -22,6 +22,7 @@ public class News {
         this.month = intent.getStringExtra("month");
         this.year = intent.getStringExtra("year");
         this.isbn = intent.getStringExtra("isbn");
+        this.pngId  = intent.getIntExtra("pngId",R.drawable.ic_launcher_background);
         
     }
 
@@ -36,6 +37,7 @@ public class News {
         go.putExtra("year",temp.year);
         go.putExtra("month",temp.month);
         go.putExtra("isbn",temp.isbn);
+        go.putExtra("pngId",temp.pngId);
         //Toast.makeText(Add.this,"新建成功", Toast.LENGTH_SHORT).show();
         //go.setClass(Add.this,MainActivity.class);
         //temp.getmessage(go);

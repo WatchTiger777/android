@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class Add extends AppCompatActivity {
                 TextView textView_year = findViewById(R.id.editTextTextPassword5);
                 TextView textView_month = findViewById(R.id.editTextTextPassword6);
                 TextView textView_isbn = findViewById(R.id.editTextTextPassword7);
+                ImageView imageView_png = findViewById(R.id.imageView);
                 //intent返回数据给主acitivity
                 yesIntent.putExtra("button",3);
                 yesIntent.putExtra("title",textView_title.getText().toString());
@@ -36,6 +38,8 @@ public class Add extends AppCompatActivity {
                 yesIntent.putExtra("year",textView_year.getText().toString());
                 yesIntent.putExtra("month",textView_month.getText().toString());
                 yesIntent.putExtra("isbn",textView_isbn.getText().toString());
+                yesIntent.putExtra("pngId",R.drawable.ic_launcher_foreground);
+                imageView_png.setImageResource(R.drawable.ic_launcher_foreground);
                 Toast.makeText(Add.this,"新建成功", Toast.LENGTH_SHORT).show();
                 yesIntent.setClass(Add.this,MainActivity.class);
                 startActivity(yesIntent);

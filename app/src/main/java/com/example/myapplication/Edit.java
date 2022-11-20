@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +25,12 @@ public class Edit extends AppCompatActivity {
         TextView textView_year = findViewById(R.id.editTextTextPassword5);
         TextView textView_month = findViewById(R.id.editTextTextPassword6);
         TextView textView_isbn = findViewById(R.id.editTextTextPassword7);
+        ImageView imageView_png = findViewById(R.id.imageView);
 
         Intent receive = this.getIntent();
         News news = new News();
         news.getmessage(receive);
-        news.pngId= R.drawable.ic_launcher_foreground;
+        //news.pngId = R.drawable.ic_launcher_foreground;
         textView_title.setText(news.title);
         textView_author.setText(news.author);
         textView_translator.setText(news.translator);
@@ -36,6 +38,8 @@ public class Edit extends AppCompatActivity {
         textView_year.setText(news.year);
         textView_month.setText(news.month);
         textView_isbn.setText(news.isbn);
+        imageView_png.setImageResource(news.pngId);
+
 
         buttonYes.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -51,6 +55,7 @@ public class Edit extends AppCompatActivity {
                 yesIntent.putExtra("year",textView_year.getText().toString());
                 yesIntent.putExtra("month",textView_month.getText().toString());
                 yesIntent.putExtra("isbn",textView_isbn.getText().toString());
+                yesIntent.putExtra("pngId",R.drawable.ic_launcher_foreground);
                 Toast.makeText(Edit.this,"编辑成功", Toast.LENGTH_SHORT).show();
                 yesIntent.setClass(Edit.this,MainActivity.class);
                 Edit.this.setResult(0,yesIntent);

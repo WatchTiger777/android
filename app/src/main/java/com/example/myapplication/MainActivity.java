@@ -51,14 +51,14 @@ public class MainActivity extends AppCompatActivity {
                 mNewsList.remove(nowposition);
                 save();
                 //reload();
-                finish();
+                //finish();
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
             case 3:
                 mNewsList.clear();
                 save();
-                finish();
+                //finish();
                 Intent intent1 = new Intent(this, MainActivity.class);
                 startActivity(intent1);
                 break;
@@ -149,16 +149,15 @@ public class MainActivity extends AppCompatActivity {
                                                startActivity(gotoAdd);
                                            }
                                        });
-        //接受来自imageButoon即Add的数据
-        reload();
+        //接受来自其他activity的数据
         News news = new News();
-        Intent receiveButton = this.getIntent();
-        int Button = receiveButton.getIntExtra("button",0);
+        Intent receive = this.getIntent();
+        int Button = receive.getIntExtra("button",0);
         switch (Button)
         {
-            //edit
+            //接受来自edit发来的intent
             case 1:
-                news.getmessage(receiveButton);
+                news.getmessage(receive);
                 mNewsList.set(nowposition,news);
                 save();
                 break;
@@ -169,8 +168,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
             //add
             case 3:
-                news.getmessage(receiveButton);
-                news.pngId= R.drawable.ic_launcher_foreground;
+                news.getmessage(receive);
+                //news.pngId= R.drawable.ic_launcher_foreground;
                 mNewsList.add(news);
                 save();
 
