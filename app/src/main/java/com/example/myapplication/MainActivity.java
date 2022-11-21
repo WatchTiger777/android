@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     MyAdapter mMyAdapter ;
     public static int nowposition = 0;
     //静态类变量
-    static List<News> mNewsList = new ArrayList<>();
+    public List<News> mNewsList = new ArrayList<>();
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             Context cont = this.getApplicationContext();
             File name = cont.getFilesDir();
             String fileName = getString(R.string.bookData);
-            FileOutputStream fos= new FileOutputStream(fileName,true);
+            FileOutputStream fos= new FileOutputStream(fileName);
             ObjectOutputStream oos= new ObjectOutputStream(fos);
             oos.writeObject(mNewsList);
             oos.close();
@@ -137,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mRecyclerView = findViewById(R.id.recyclerview);
 
+        reload();
         //右下角添加按钮
         ImageButton imageButton = findViewById(R.id.imageButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -188,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
          */
-        reload();
         mMyAdapter = new MyAdapter(mNewsList,this);
         mRecyclerView.setAdapter(mMyAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);

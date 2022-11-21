@@ -3,7 +3,9 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.widget.Toast;
 
-public class News {
+import java.io.Serializable;
+
+public class News implements Serializable {
     public String title;
     public String author;
     public String translator;
