@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -17,13 +19,26 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     BookListFragment bookListFragment = new BookListFragment();
+    HistoryFragment historyFragment = new HistoryFragment();
     ArrayList<Fragment>  fragmentsArray = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentsArray.add(bookListFragment);
-        fragmentsArray.add(new BlankFragment());
+        fragmentsArray.add(historyFragment);
+        //fragmentsArray.add(new BlankFragment());
+        /*
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.setFragmentResultListener("deleteBook", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                News temp = (News)result.getSerializable("key");
+                News temp2;
+            }
+        });
+
+         */
         //创建适配器，并传入fragment
         ViewPaperAdapter viewPaperAdapter = new ViewPaperAdapter(MainActivity.this,fragmentsArray);
         //添加适配器
@@ -61,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
     public BookListFragment getBookListFragment() {
         return bookListFragment;
     }
+
+    public HistoryFragment getHistoryFragment() {
+        return historyFragment;
+    }
+
 
     public class ViewPaperAdapter extends FragmentStateAdapter {
         private ArrayList<Fragment> mfragments;

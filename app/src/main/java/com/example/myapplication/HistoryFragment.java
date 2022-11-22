@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,14 +33,15 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link BookListFragment#newInstance} factory method to
+ * Use the {@link HistoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BookListFragment extends Fragment {
+public class HistoryFragment extends Fragment {
     RecyclerView mRecyclerView;
-    MyAdapter mMyAdapter ;
+    historyAdapter mMyAdapter ;
     public int nowposition = 0;
     //静态类变量
+    News deleteBook = new News();
     public List<News> mNewsList = new ArrayList<>();
 
     // TODO: Rename parameter arguments, choose names that match
@@ -51,7 +53,7 @@ public class BookListFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public BookListFragment() {
+    public HistoryFragment() {
         // Required empty public constructor
     }
 
@@ -61,11 +63,11 @@ public class BookListFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BooklistFragment.
+     * @return A new instance of fragment HistoryFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BookListFragment newInstance(String param1, String param2) {
-        BookListFragment fragment = new BookListFragment();
+    public static HistoryFragment newInstance(String param1, String param2) {
+        HistoryFragment fragment = new HistoryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -81,7 +83,6 @@ public class BookListFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
@@ -102,10 +103,8 @@ public class BookListFragment extends Fragment {
                 //finish();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 Bundle result = new Bundle();
-                result.putSerializable("key",deleteBook);
-                result.putString("key1","abc");
+                result.putSerializable("deleteBook",deleteBook);
                 getParentFragmentManager().setFragmentResult("deleteBook",result);
-                getChildFragmentManager().setFragmentResult("deleteBook",result);
                 startActivity(intent);
                 break;
             case 3:
@@ -148,7 +147,7 @@ public class BookListFragment extends Fragment {
     protected void save()
     {
         try{
-            String fileName = getString(R.string.bookData);
+            String fileName = getString(R.string.history);
             FileOutputStream fos= new FileOutputStream(fileName);
             ObjectOutputStream oos= new ObjectOutputStream(fos);
             oos.writeObject(mNewsList);
@@ -164,7 +163,7 @@ public class BookListFragment extends Fragment {
     {
         try
         {
-            String fileName = getString(R.string.bookData);
+            String fileName = getString(R.string.history);
             FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
             mNewsList = (List<News>) ois.readObject();
@@ -185,32 +184,48 @@ public class BookListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_booklist,container,false);
+        getParentFragmentManager().setFragmentResultListener("deleteBook", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                deleteBook = (News)result.getSerializable("key");
+
+            }
+        });
+        getParentFragmentManager().setFragmentResultListener("deleteBook", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                String string1 = result.getString("key1");
+
+            }
+        });
+        View view = inflater.inflate(R.layout.fragment_history,container,false);
         mRecyclerView= view.findViewById(R.id.recyclerview);
         DividerItemDecoration mDivider = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(mDivider);
-        String fileName = getString(R.string.bookData);
+        String fileName = getString(R.string.history);
         File file = new File(fileName);
         if (file.exists()){
             reload();
         }
-        //接受来自其他activity的数据
-        News news = new News();
         Intent receive = getActivity().getIntent();
         int Button = receive.getIntExtra("button",0);
         switch (Button)
         {
             //接受来自edit发来的intent
+            /*
             case 1:
                 news.getmessage(receive);
                 mNewsList.set(nowposition,news);
                 save();
                 break;
+
+             */
             //delete
             case 2:
-                mNewsList.remove(nowposition);
+                mNewsList.add(deleteBook);
                 save();
                 break;
+                /*
             //add
             case 3:
                 news.getmessage(receive);
@@ -219,11 +234,13 @@ public class BookListFragment extends Fragment {
                 save();
 
                 break;
+
+                 */
             default:
                 break;
 
         }
-        mMyAdapter = new MyAdapter(mNewsList,getActivity());
+        mMyAdapter = new historyAdapter(mNewsList,getActivity());
         mRecyclerView.setAdapter(mMyAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
@@ -243,31 +260,31 @@ public class BookListFragment extends Fragment {
     }
 
     //长按
-    class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHoder> {
+    class historyAdapter extends RecyclerView.Adapter<historyAdapter.MyViewHoder> {
 
         private int position;
         private Context mContext;
         private List<News> mList;
-        public MyAdapter(List<News> fruitList, Context mContext){this.mContext = mContext;this.mList=fruitList;}
+        public historyAdapter(List<News> fruitList, Context mContext){this.mContext = mContext;this.mList=fruitList;}
         public int getContextMenuPosition() { return position; }
         public void setContextMenuPosition(int position) { this.position = position; }
 
         @NonNull
         @Override
-        public MyAdapter.MyViewHoder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public historyAdapter.MyViewHoder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = View.inflate(getActivity(), R.layout.book_list, null);
-            MyViewHoder myViewHoder = new MyAdapter.MyViewHoder(view);
+            historyAdapter.MyViewHoder myViewHoder = new historyAdapter.MyViewHoder(view);
             return myViewHoder;
         }
 
         @Override
-        public void onViewRecycled(@NonNull MyAdapter.MyViewHoder holder) {
+        public void onViewRecycled(@NonNull historyAdapter.MyViewHoder holder) {
             holder.itemView.setOnLongClickListener(null);
             super.onViewRecycled(holder);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyAdapter.MyViewHoder holder, int position) {
+        public void onBindViewHolder(@NonNull historyAdapter.MyViewHoder holder, int position) {
             News news = mNewsList.get(position);
             holder.mTitleTv.setText(news.title);
             holder.mTitleContent.setText(news.author);
@@ -306,9 +323,8 @@ public class BookListFragment extends Fragment {
                 News mSelectModelUser = mNewsList.get(getContextMenuPosition());
                 Log.i("UserAdapter", "onCreateContextMenu: "+getContextMenuPosition());
                 menu.setHeaderTitle(mSelectModelUser.title);
-                (((MainActivity)getActivity()).getBookListFragment()).CreateMenu(menu);
+                (((MainActivity)getActivity()).getHistoryFragment()).CreateMenu(menu);
             }
         }
     }
-
 }
