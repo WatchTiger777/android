@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">booklist</string>
     <string name="bookData">/data/user/0/com.example.myapplication/files/bookData</string>
+    <string name="history">/data/user/0/com.example.myapplication/files/history</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
