@@ -15,6 +15,18 @@ public class News implements Serializable {
     public String isbn ;
     public int pngId;
 
+
+    public void setAll(News temp) {
+
+        this.title = temp.title;
+        this.author = temp.author;
+        this.translator = temp.translator;
+        this.publisher = temp.publisher;
+        this.year = temp.year;
+        this.month = temp.month;
+        this.isbn = temp.isbn;
+        this.pngId = temp.pngId;
+    }
     public void getmessage(Intent intent)
     {
         this.title = intent.getStringExtra("title");

@@ -21,6 +21,25 @@ public class MainActivity extends AppCompatActivity {
     BookListFragment bookListFragment = new BookListFragment();
     HistoryFragment historyFragment = new HistoryFragment();
     ArrayList<Fragment>  fragmentsArray = new ArrayList<>();
+    public static News temp = new News();
+    public static boolean restoration = false;
+    public static boolean delete = false;
+
+    public void setTemp(News temp,boolean restore,boolean delete)
+    {
+       this.delete = delete;
+       this.restoration = restore;
+       this.temp.setAll(temp);
+    }
+
+    public News getTemp(boolean restore,boolean delete)
+    {
+        this.delete = delete;
+        this.restoration = restore;
+        return this.temp;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         ViewPaperAdapter viewPaperAdapter = new ViewPaperAdapter(MainActivity.this,fragmentsArray);
         //添加适配器
         ViewPager2 viewPager = findViewById(R.id.viewpaper2);
+        //viewPager.setOffscreenPageLimit(0);     //防止delete出bug
+        viewPager.setPageTransformer(new ZoomOutPageTransformer());
         viewPager.setAdapter(viewPaperAdapter);
         viewPager.setCurrentItem(0);
         TabLayout tabLayout = findViewById(R.id.tabLayout);

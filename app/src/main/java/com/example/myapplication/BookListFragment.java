@@ -101,11 +101,15 @@ public class BookListFragment extends Fragment {
                 //reload();
                 //finish();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
+                ((MainActivity)getActivity()).setTemp(deleteBook,false,true);
+                /*
                 Bundle result = new Bundle();
                 result.putSerializable("key",deleteBook);
                 result.putString("key1","abc");
                 getParentFragmentManager().setFragmentResult("deleteBook",result);
                 getChildFragmentManager().setFragmentResult("deleteBook",result);
+
+                 */
                 startActivity(intent);
                 break;
             case 3:
@@ -189,6 +193,12 @@ public class BookListFragment extends Fragment {
         mRecyclerView= view.findViewById(R.id.recyclerview);
         DividerItemDecoration mDivider = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(mDivider);
+
+        //restore
+        if (((MainActivity)getActivity()).restoration){
+            mNewsList.add(((MainActivity)getActivity()).getTemp(false,false));
+            save();
+        }
         String fileName = getString(R.string.bookData);
         File file = new File(fileName);
         if (file.exists()){

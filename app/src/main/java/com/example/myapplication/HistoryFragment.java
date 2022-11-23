@@ -87,25 +87,19 @@ public class HistoryFragment extends Fragment {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            //edit
+            //restore
             case 1:
-                Intent gotoEdit = new News().sendmessage(mNewsList.get(nowposition));
-                gotoEdit.setClass(getActivity(),Edit.class);
-                startActivity(gotoEdit);
+                ((MainActivity)getActivity()).setTemp(mNewsList.get(nowposition),true,false);
+                mNewsList.remove(nowposition);
+                save();
 
                 break;
             //delete
             case 2:
-                News deleteBook = mNewsList.get(nowposition);
                 mNewsList.remove(nowposition);
                 save();
                 //reload();
                 //finish();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                Bundle result = new Bundle();
-                result.putSerializable("deleteBook",deleteBook);
-                getParentFragmentManager().setFragmentResult("deleteBook",result);
-                startActivity(intent);
                 break;
             case 3:
                 mNewsList.clear();
@@ -130,7 +124,7 @@ public class HistoryFragment extends Fragment {
             switch(itemID[i])
             {
                 case 1:
-                    menu.add(groupID, itemID[i], order, "编辑");
+                    menu.add(groupID, itemID[i], order, "恢复");
                     break;
                 case 2:
                     menu.add(groupID, itemID[i], order, "删除");
@@ -180,10 +174,17 @@ public class HistoryFragment extends Fragment {
         return ;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        /*
         getParentFragmentManager().setFragmentResultListener("deleteBook", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
@@ -198,52 +199,28 @@ public class HistoryFragment extends Fragment {
 
             }
         });
-        View view = inflater.inflate(R.layout.fragment_history,container,false);
-        mRecyclerView= view.findViewById(R.id.recyclerview);
-        DividerItemDecoration mDivider = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL);
-        mRecyclerView.addItemDecoration(mDivider);
+
+         */
         String fileName = getString(R.string.history);
         File file = new File(fileName);
         if (file.exists()){
             reload();
         }
-        Intent receive = getActivity().getIntent();
-        int Button = receive.getIntExtra("button",0);
-        switch (Button)
-        {
-            //接受来自edit发来的intent
-            /*
-            case 1:
-                news.getmessage(receive);
-                mNewsList.set(nowposition,news);
-                save();
-                break;
-
-             */
-            //delete
-            case 2:
-                mNewsList.add(deleteBook);
-                save();
-                break;
-                /*
-            //add
-            case 3:
-                news.getmessage(receive);
-                //news.pngId= R.drawable.ic_launcher_foreground;
-                mNewsList.add(news);
-                save();
-
-                break;
-
-                 */
-            default:
-                break;
-
+        if (((MainActivity)getActivity()).delete){
+            mNewsList.add(((MainActivity)getActivity()).getTemp(false,false));
+            save();
         }
+        View view = inflater.inflate(R.layout.fragment_history,container,false);
+        mRecyclerView= view.findViewById(R.id.recyclerview);
+        DividerItemDecoration mDivider = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(mDivider);
+
+
         mMyAdapter = new historyAdapter(mNewsList,getActivity());
         mRecyclerView.setAdapter(mMyAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
+        /*
         //右下角添加按钮
         ImageButton imageButton = view.findViewById(R.id.imageButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -256,6 +233,8 @@ public class HistoryFragment extends Fragment {
                 startActivity(gotoAdd);
             }
         });
+
+         */
         return view;
     }
 
