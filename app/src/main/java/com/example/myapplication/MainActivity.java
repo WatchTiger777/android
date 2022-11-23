@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPaperAdapter viewPaperAdapter = new ViewPaperAdapter(MainActivity.this,fragmentsArray);
         //添加适配器
         ViewPager2 viewPager = findViewById(R.id.viewpaper2);
-        //viewPager.setOffscreenPageLimit(0);     //防止delete出bug
+        //viewPager.setOffscreenPageLimit(1);     //防止delete出bug
         viewPager.setPageTransformer(new ZoomOutPageTransformer());
         viewPager.setAdapter(viewPaperAdapter);
         viewPager.setCurrentItem(0);

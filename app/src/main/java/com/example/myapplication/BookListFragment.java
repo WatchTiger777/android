@@ -85,23 +85,24 @@ public class BookListFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            //edit
-            case 1:
-                Intent gotoEdit = new News().sendmessage(mNewsList.get(nowposition));
-                gotoEdit.setClass(getActivity(),Edit.class);
-                startActivity(gotoEdit);
+        if(item.getGroupId()==0){
+            switch (item.getItemId()) {
+                //edit
+                case 1:
+                    Intent gotoEdit = new News().sendmessage(mNewsList.get(nowposition));
+                    gotoEdit.setClass(getActivity(),Edit.class);
+                    startActivity(gotoEdit);
 
-                break;
-            //delete
-            case 2:
-                News deleteBook = mNewsList.get(nowposition);
-                mNewsList.remove(nowposition);
-                save();
-                //reload();
-                //finish();
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                ((MainActivity)getActivity()).setTemp(deleteBook,false,true);
+                    break;
+                //delete
+                case 2:
+                    News deleteBook = mNewsList.get(nowposition);
+                    mNewsList.remove(nowposition);
+                    save();
+                    //reload();
+                    //finish();
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    ((MainActivity)getActivity()).setTemp(deleteBook,false,true);
                 /*
                 Bundle result = new Bundle();
                 result.putSerializable("key",deleteBook);
@@ -110,18 +111,20 @@ public class BookListFragment extends Fragment {
                 getChildFragmentManager().setFragmentResult("deleteBook",result);
 
                  */
-                startActivity(intent);
-                break;
-            case 3:
-                mNewsList.clear();
-                save();
-                //finish();
-                Intent intent1 = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent1);
-                break;
-            default:
-                break;
+                    startActivity(intent);
+                    break;
+                case 3:
+                    mNewsList.clear();
+                    save();
+                    //finish();
+                    Intent intent1 = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent1);
+                    break;
+                default:
+                    break;
+            }
         }
+
         return super.onContextItemSelected(item);
     }
 

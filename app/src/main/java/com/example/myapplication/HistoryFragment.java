@@ -86,37 +86,41 @@ public class HistoryFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            //restore
-            case 1:
-                ((MainActivity)getActivity()).setTemp(mNewsList.get(nowposition),true,false);
-                mNewsList.remove(nowposition);
-                save();
 
-                break;
-            //delete
-            case 2:
-                mNewsList.remove(nowposition);
-                save();
-                //reload();
-                //finish();
-                break;
-            case 3:
-                mNewsList.clear();
-                save();
-                //finish();
-                Intent intent1 = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent1);
-                break;
-            default:
-                break;
+        if(item.getGroupId()==1){
+            switch (item.getItemId()) {
+                //restore
+                case 1:
+                    ((MainActivity)getActivity()).setTemp(mNewsList.get(nowposition),true,false);
+                    mNewsList.remove(nowposition);
+                    save();
+
+                    break;
+                //delete
+                case 2:
+                    mNewsList.remove(nowposition);
+                    save();
+                    //reload();
+                    //finish();
+                    break;
+                case 3:
+                    mNewsList.clear();
+                    save();
+                    //finish();
+                    Intent intent1 = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent1);
+                    break;
+                default:
+                    break;
+            }
         }
+
         return super.onContextItemSelected(item);
     }
 
     public void CreateMenu(Menu menu)
     {
-        int groupID = 0;
+        int groupID = 1;
         int order = 0;
         int[] itemID = {1,2,3};
         for(int i=0;i<itemID.length;i++)
@@ -175,10 +179,6 @@ public class HistoryFragment extends Fragment {
     }
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -211,7 +211,7 @@ public class HistoryFragment extends Fragment {
             save();
         }
         View view = inflater.inflate(R.layout.fragment_history,container,false);
-        mRecyclerView= view.findViewById(R.id.recyclerview);
+        mRecyclerView= view.findViewById(R.id.recyclerview2);
         DividerItemDecoration mDivider = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(mDivider);
 
