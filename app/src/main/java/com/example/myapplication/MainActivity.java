@@ -6,8 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -24,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     public static News temp = new News();
     public static boolean restoration = false;
     public static boolean delete = false;
+    public ViewPager2 viewpager;
+
+
 
     public void setTemp(News temp,boolean restore,boolean delete)
     {
@@ -39,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
         return this.temp;
     }
 
+    public void rollTobooklist()
+    {
+        viewpager.setCurrentItem(0);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setPageTransformer(new ZoomOutPageTransformer());
         viewPager.setAdapter(viewPaperAdapter);
         viewPager.setCurrentItem(0);
+        viewpager = viewPager;
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override

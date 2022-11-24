@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -94,6 +95,9 @@ public class HistoryFragment extends Fragment {
                     ((MainActivity)getActivity()).setTemp(mNewsList.get(nowposition),true,false);
                     mNewsList.remove(nowposition);
                     save();
+                    ((MainActivity)getActivity()).rollTobooklist();
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
 
                     break;
                 //delete
