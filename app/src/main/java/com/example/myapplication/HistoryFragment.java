@@ -92,17 +92,23 @@ public class HistoryFragment extends Fragment {
             switch (item.getItemId()) {
                 //restore
                 case 1:
-                    ((MainActivity)getActivity()).setTemp(mNewsList.get(nowposition),true,false);
+                    News temp = mNewsList.get(nowposition);
+                    //((MainActivity)getActivity()).setTemp(temp,true,false);
+                    ((MainActivity)getActivity()).getBookListFragment().mNewsList.add(temp);
+                    ((MainActivity)getActivity()).getBookListFragment().mMyAdapter.notifyDataSetChanged();
                     mNewsList.remove(nowposition);
                     save();
-                    ((MainActivity)getActivity()).rollTobooklist();
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent);
+                    mMyAdapter.notifyItemChanged(nowposition);
+                    //((MainActivity)getActivity()).rollTobooklist();
+                    //刷新一次activity使得booklistfragment的onCreateView被调用，重新绘制
+                    //Intent intent = new Intent(getActivity(), MainActivity.class);
+                    //startActivity(intent);
 
                     break;
                 //delete
                 case 2:
                     mNewsList.remove(nowposition);
+                    mMyAdapter.notifyItemChanged(nowposition);
                     save();
                     //reload();
                     //finish();
@@ -210,10 +216,13 @@ public class HistoryFragment extends Fragment {
         if (file.exists()){
             reload();
         }
+        /*
         if (((MainActivity)getActivity()).delete){
             mNewsList.add(((MainActivity)getActivity()).getTemp(false,false));
             save();
         }
+
+         */
         View view = inflater.inflate(R.layout.fragment_history,container,false);
         mRecyclerView= view.findViewById(R.id.recyclerview2);
         DividerItemDecoration mDivider = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL);

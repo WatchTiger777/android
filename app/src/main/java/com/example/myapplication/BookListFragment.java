@@ -93,17 +93,21 @@ public class BookListFragment extends Fragment {
                     Intent gotoEdit = new News().sendmessage(mNewsList.get(nowposition));
                     gotoEdit.setClass(getActivity(),Edit.class);
                     startActivity(gotoEdit);
+                    //mMyAdapter.notifyItemChanged(nowposition);
 
                     break;
                 //delete
                 case 2:
                     News deleteBook = mNewsList.get(nowposition);
                     mNewsList.remove(nowposition);
+
+                    ((MainActivity)getActivity()).getHistoryFragment().mNewsList.add(deleteBook);
+                    ((MainActivity)getActivity()).getHistoryFragment().mMyAdapter.notifyDataSetChanged();
                     save();
                     //reload();
                     //finish();
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    ((MainActivity)getActivity()).setTemp(deleteBook,false,true);
+                    mMyAdapter.notifyItemChanged(nowposition);
+                    //((MainActivity)getActivity()).setTemp(deleteBook,false,true);
                 /*
                 Bundle result = new Bundle();
                 result.putSerializable("key",deleteBook);
@@ -112,14 +116,21 @@ public class BookListFragment extends Fragment {
                 getChildFragmentManager().setFragmentResult("deleteBook",result);
 
                  */
-                    startActivity(intent);
+                    //Intent intent = new Intent(getActivity(), MainActivity.class);
+                    //startActivity(intent);
                     break;
                 case 3:
+                    ((MainActivity)getActivity()).getHistoryFragment().mNewsList.addAll(mNewsList);
+                    ((MainActivity)getActivity()).getHistoryFragment().mMyAdapter.notifyDataSetChanged();
                     mNewsList.clear();
                     save();
                     //finish();
+                    mMyAdapter.notifyDataSetChanged();
+                    /*
                     Intent intent1 = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent1);
+
+                     */
                     break;
                 default:
                     break;
@@ -199,10 +210,13 @@ public class BookListFragment extends Fragment {
         mRecyclerView.addItemDecoration(mDivider);
 
         //restore
+        /*
         if (((MainActivity)getActivity()).restoration){
             mNewsList.add(((MainActivity)getActivity()).getTemp(false,false));
             save();
         }
+
+         */
         String fileName = getString(R.string.bookData);
         File file = new File(fileName);
         if (file.exists()){
@@ -231,6 +245,7 @@ public class BookListFragment extends Fragment {
                 //news.pngId= R.drawable.ic_launcher_foreground;
                 mNewsList.add(news);
                 save();
+                //mMyAdapter.notifyDataSetChanged();
 
                 break;
             default:
