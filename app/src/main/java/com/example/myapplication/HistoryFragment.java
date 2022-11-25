@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import android.util.Log;
 import android.view.ContextMenu;
@@ -94,11 +95,14 @@ public class HistoryFragment extends Fragment {
                 case 1:
                     News temp = mNewsList.get(nowposition);
                     //((MainActivity)getActivity()).setTemp(temp,true,false);
+                    MainActivity operator = (MainActivity) getActivity();
                     ((MainActivity)getActivity()).getBookListFragment().mNewsList.add(temp);
                     ((MainActivity)getActivity()).getBookListFragment().mMyAdapter.notifyDataSetChanged();
+                    operator.getBookListFragment().save();
                     mNewsList.remove(nowposition);
                     save();
-                    mMyAdapter.notifyItemChanged(nowposition);
+                    mMyAdapter.notifyDataSetChanged();
+                    //mMyAdapter.notifyItemChanged(nowposition);
                     //((MainActivity)getActivity()).rollTobooklist();
                     //刷新一次activity使得booklistfragment的onCreateView被调用，重新绘制
                     //Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -233,6 +237,7 @@ public class HistoryFragment extends Fragment {
         mRecyclerView.setAdapter(mMyAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
+        ((SimpleItemAnimator)mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         /*
         //右下角添加按钮
         ImageButton imageButton = view.findViewById(R.id.imageButton);

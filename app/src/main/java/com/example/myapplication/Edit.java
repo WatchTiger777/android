@@ -61,6 +61,8 @@ public class Edit extends AppCompatActivity {
                 Edit.this.setResult(0,yesIntent);
                 startActivity(yesIntent);
 
+                Edit.this.finish();
+
 
             }
         });

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import android.util.Log;
 import android.view.ContextMenu;
@@ -106,7 +107,9 @@ public class BookListFragment extends Fragment {
                     save();
                     //reload();
                     //finish();
-                    mMyAdapter.notifyItemChanged(nowposition);
+                    mMyAdapter.notifyDataSetChanged();
+                    //如果删除nowposition=0时会出bug
+                    //mMyAdapter.notifyItemChanged(nowposition-1);
                     //((MainActivity)getActivity()).setTemp(deleteBook,false,true);
                 /*
                 Bundle result = new Bundle();
@@ -120,8 +123,15 @@ public class BookListFragment extends Fragment {
                     //startActivity(intent);
                     break;
                 case 3:
+                    MainActivity operator = (MainActivity) getActivity();
+                    operator.getHistoryFragment().mNewsList.addAll(mNewsList);
+                    operator.getHistoryFragment().save();
+                    operator.getHistoryFragment().mMyAdapter.notifyDataSetChanged();
+                    /*
                     ((MainActivity)getActivity()).getHistoryFragment().mNewsList.addAll(mNewsList);
                     ((MainActivity)getActivity()).getHistoryFragment().mMyAdapter.notifyDataSetChanged();
+
+                     */
                     mNewsList.clear();
                     save();
                     //finish();
@@ -256,6 +266,7 @@ public class BookListFragment extends Fragment {
         mRecyclerView.setAdapter(mMyAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
+        ((SimpleItemAnimator)mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         //右下角添加按钮
         ImageButton imageButton = view.findViewById(R.id.imageButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
