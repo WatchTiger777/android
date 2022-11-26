@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.hardware.biometrics.BiometricManager;
 import android.widget.Toast;
 
 import java.io.Serializable;
@@ -14,6 +16,7 @@ public class News implements Serializable {
     public String month;
     public String isbn ;
     public int pngId;
+    public Bitmap png;
 
     /*
     public void setAll(News temp) {
@@ -39,13 +42,12 @@ public class News implements Serializable {
         this.year = intent.getStringExtra("year");
         this.isbn = intent.getStringExtra("isbn");
         this.pngId  = intent.getIntExtra("pngId",R.drawable.ic_launcher_background);
-        
+
     }
 
     public Intent sendmessage(News temp,int nowposition)
     {
         Intent go = new Intent();
-        go.putExtra("button",3);
         go.putExtra("title",temp.title);
         go.putExtra("author",temp.author);
         go.putExtra("translator",temp.translator);

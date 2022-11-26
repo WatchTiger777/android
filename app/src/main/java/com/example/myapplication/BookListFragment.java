@@ -4,6 +4,8 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,6 +29,7 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -203,6 +206,15 @@ public class BookListFragment extends Fragment {
                 //接受来自edit发来的intent
                 case 1:
                     news.getmessage(data);
+                    String fileName = getString(R.string.image);
+                    Bitmap getpng ;
+                    try {
+                        FileInputStream bais = new FileInputStream(fileName);
+                        news.png = BitmapFactory.decodeStream(bais, null, null);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
                     int tempposition = data.getIntExtra("nowposition",0);
                     mNewsList.set(tempposition,news);
                     mMyAdapter.notifyItemChanged(nowposition);
@@ -293,6 +305,7 @@ public class BookListFragment extends Fragment {
             holder.mTitleTv.setText(news.title);
             holder.mTitleContent.setText(news.author);
             holder.mTitlePng.setImageResource(news.pngId);
+            holder.mTitlePng.setImageBitmap(news.png);
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
