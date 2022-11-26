@@ -30,7 +30,7 @@ public class Add extends AppCompatActivity {
                 TextView textView_isbn = findViewById(R.id.editTextTextPassword7);
                 ImageView imageView_png = findViewById(R.id.imageView);
                 //intent返回数据给主acitivity
-                yesIntent.putExtra("button",3);
+                //yesIntent.putExtra("button",3);
                 yesIntent.putExtra("title",textView_title.getText().toString());
                 yesIntent.putExtra("author",textView_author.getText().toString());
                 yesIntent.putExtra("translator",textView_translator.getText().toString());
@@ -42,7 +42,9 @@ public class Add extends AppCompatActivity {
                 imageView_png.setImageResource(R.drawable.ic_launcher_foreground);
                 Toast.makeText(Add.this,"新建成功", Toast.LENGTH_SHORT).show();
                 yesIntent.setClass(Add.this,MainActivity.class);
-                startActivity(yesIntent);
+                //startActivity(yesIntent);
+                Add.this.setResult(RESULT_OK,yesIntent);
+                Add.this.finish();
 
 
             }

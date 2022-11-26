@@ -1,10 +1,13 @@
 package com.example.myapplication;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -91,10 +94,10 @@ public class BookListFragment extends Fragment {
             switch (item.getItemId()) {
                 //edit
                 case 1:
-                    Intent gotoEdit = new News().sendmessage(mNewsList.get(nowposition));
+                    Intent gotoEdit = new News().sendmessage(mNewsList.get(nowposition),nowposition);
                     gotoEdit.setClass(getActivity(),Edit.class);
-                    startActivity(gotoEdit);
-                    //mMyAdapter.notifyItemChanged(nowposition);
+                    startActivityForResult(gotoEdit,1);
+                    //startActivity(gotoEdit);
 
                     break;
                 //delete
@@ -105,42 +108,20 @@ public class BookListFragment extends Fragment {
                     ((MainActivity)getActivity()).getHistoryFragment().mNewsList.add(deleteBook);
                     ((MainActivity)getActivity()).getHistoryFragment().mMyAdapter.notifyDataSetChanged();
                     save();
-                    //reload();
-                    //finish();
                     mMyAdapter.notifyDataSetChanged();
-                    //如果删除nowposition=0时会出bug
-                    //mMyAdapter.notifyItemChanged(nowposition-1);
-                    //((MainActivity)getActivity()).setTemp(deleteBook,false,true);
-                /*
-                Bundle result = new Bundle();
-                result.putSerializable("key",deleteBook);
-                result.putString("key1","abc");
-                getParentFragmentManager().setFragmentResult("deleteBook",result);
-                getChildFragmentManager().setFragmentResult("deleteBook",result);
-
-                 */
-                    //Intent intent = new Intent(getActivity(), MainActivity.class);
-                    //startActivity(intent);
                     break;
+
+                //clear
                 case 3:
                     MainActivity operator = (MainActivity) getActivity();
                     operator.getHistoryFragment().mNewsList.addAll(mNewsList);
                     operator.getHistoryFragment().save();
                     operator.getHistoryFragment().mMyAdapter.notifyDataSetChanged();
-                    /*
-                    ((MainActivity)getActivity()).getHistoryFragment().mNewsList.addAll(mNewsList);
-                    ((MainActivity)getActivity()).getHistoryFragment().mMyAdapter.notifyDataSetChanged();
 
-                     */
                     mNewsList.clear();
                     save();
-                    //finish();
                     mMyAdapter.notifyDataSetChanged();
-                    /*
-                    Intent intent1 = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent1);
 
-                     */
                     break;
                 default:
                     break;
@@ -210,6 +191,41 @@ public class BookListFragment extends Fragment {
         return ;
     }
 
+    //接受来自其他activity的数据
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        News news = new News();
+        if(resultCode == RESULT_OK)
+        {
+            switch(requestCode)
+            {
+                //接受来自edit发来的intent
+                case 1:
+                    news.getmessage(data);
+                    int tempposition = data.getIntExtra("nowposition",0);
+                    mNewsList.set(tempposition,news);
+                    mMyAdapter.notifyItemChanged(nowposition);
+                    save();
+                    break;
+
+
+                //add
+                case 2:
+                    news.getmessage(data);
+                    mNewsList.add(news);
+                    save();
+                    mMyAdapter.notifyDataSetChanged();
+
+                    break;
+                default:
+                    break;
+
+
+            }
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -219,54 +235,18 @@ public class BookListFragment extends Fragment {
         DividerItemDecoration mDivider = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(mDivider);
 
-        //restore
-        /*
-        if (((MainActivity)getActivity()).restoration){
-            mNewsList.add(((MainActivity)getActivity()).getTemp(false,false));
-            save();
-        }
-
-         */
         String fileName = getString(R.string.bookData);
         File file = new File(fileName);
         if (file.exists()){
             reload();
         }
-        //接受来自其他activity的数据
-        News news = new News();
-        Intent receive = getActivity().getIntent();
-        int Button = receive.getIntExtra("button",0);
-        switch (Button)
-        {
-            //接受来自edit发来的intent
-            case 1:
-                news.getmessage(receive);
-                mNewsList.set(nowposition,news);
-                save();
-                break;
-            //delete
-            case 2:
-                mNewsList.remove(nowposition);
-                save();
-                break;
-            //add
-            case 3:
-                news.getmessage(receive);
-                //news.pngId= R.drawable.ic_launcher_foreground;
-                mNewsList.add(news);
-                save();
-                //mMyAdapter.notifyDataSetChanged();
 
-                break;
-            default:
-                break;
 
-        }
         mMyAdapter = new MyAdapter(mNewsList,getActivity());
         mRecyclerView.setAdapter(mMyAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-        ((SimpleItemAnimator)mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+        //((SimpleItemAnimator)mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         //右下角添加按钮
         ImageButton imageButton = view.findViewById(R.id.imageButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -276,7 +256,8 @@ public class BookListFragment extends Fragment {
                 //setContentView(R.layout.activity_add);
                 Intent gotoAdd = new Intent();
                 gotoAdd.setClass(getActivity(),Add.class);
-                startActivity(gotoAdd);
+                //startActivity(gotoAdd);
+                startActivityForResult(gotoAdd,2);
             }
         });
         return view;

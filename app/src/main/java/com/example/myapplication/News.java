@@ -15,7 +15,7 @@ public class News implements Serializable {
     public String isbn ;
     public int pngId;
 
-
+    /*
     public void setAll(News temp) {
 
         this.title = temp.title;
@@ -27,6 +27,8 @@ public class News implements Serializable {
         this.isbn = temp.isbn;
         this.pngId = temp.pngId;
     }
+
+     */
     public void getmessage(Intent intent)
     {
         this.title = intent.getStringExtra("title");
@@ -40,7 +42,7 @@ public class News implements Serializable {
         
     }
 
-    public Intent sendmessage(News temp)
+    public Intent sendmessage(News temp,int nowposition)
     {
         Intent go = new Intent();
         go.putExtra("button",3);
@@ -52,6 +54,7 @@ public class News implements Serializable {
         go.putExtra("month",temp.month);
         go.putExtra("isbn",temp.isbn);
         go.putExtra("pngId",temp.pngId);
+        go.putExtra("nowposition",nowposition);
         //Toast.makeText(Add.this,"新建成功", Toast.LENGTH_SHORT).show();
         //go.setClass(Add.this,MainActivity.class);
         //temp.getmessage(go);

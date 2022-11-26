@@ -39,6 +39,7 @@ public class Edit extends AppCompatActivity {
         textView_month.setText(news.month);
         textView_isbn.setText(news.isbn);
         imageView_png.setImageResource(news.pngId);
+        int nowposition = receive.getIntExtra("nowposition",0);
 
 
         buttonYes.setOnClickListener(new View.OnClickListener(){
@@ -47,7 +48,7 @@ public class Edit extends AppCompatActivity {
                 Intent yesIntent = new Intent();
 
                 //intent返回数据给主acitivity
-                yesIntent.putExtra("button",1);
+                //yesIntent.putExtra("button",1);
                 yesIntent.putExtra("title",textView_title.getText().toString());
                 yesIntent.putExtra("author",textView_author.getText().toString());
                 yesIntent.putExtra("translator",textView_translator.getText().toString());
@@ -56,10 +57,11 @@ public class Edit extends AppCompatActivity {
                 yesIntent.putExtra("month",textView_month.getText().toString());
                 yesIntent.putExtra("isbn",textView_isbn.getText().toString());
                 yesIntent.putExtra("pngId",R.drawable.ic_launcher_foreground);
+                yesIntent.putExtra("nowposition",nowposition);
                 Toast.makeText(Edit.this,"编辑成功", Toast.LENGTH_SHORT).show();
                 yesIntent.setClass(Edit.this,MainActivity.class);
-                Edit.this.setResult(0,yesIntent);
-                startActivity(yesIntent);
+                Edit.this.setResult(RESULT_OK,yesIntent);
+                //startActivity(yesIntent);
 
                 Edit.this.finish();
 

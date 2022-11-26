@@ -112,7 +112,13 @@ public class HistoryFragment extends Fragment {
                 //delete
                 case 2:
                     mNewsList.remove(nowposition);
-                    mMyAdapter.notifyItemChanged(nowposition);
+                    if(nowposition==0)
+                    {
+                        mMyAdapter.notifyDataSetChanged();
+                    }
+                    else{
+                        mMyAdapter.notifyItemChanged(nowposition);
+                    }
                     save();
                     //reload();
                     //finish();
@@ -121,8 +127,9 @@ public class HistoryFragment extends Fragment {
                     mNewsList.clear();
                     save();
                     //finish();
-                    Intent intent1 = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent1);
+                    mMyAdapter.notifyDataSetChanged();
+                    //Intent intent1 = new Intent(getActivity(), MainActivity.class);
+                    //startActivity(intent1);
                     break;
                 default:
                     break;
@@ -237,7 +244,7 @@ public class HistoryFragment extends Fragment {
         mRecyclerView.setAdapter(mMyAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-        ((SimpleItemAnimator)mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+        //((SimpleItemAnimator)mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         /*
         //右下角添加按钮
         ImageButton imageButton = view.findViewById(R.id.imageButton);

@@ -19,31 +19,10 @@ public class MainActivity extends AppCompatActivity {
     BookListFragment bookListFragment = new BookListFragment();
     HistoryFragment historyFragment = new HistoryFragment();
     ArrayList<Fragment>  fragmentsArray = new ArrayList<>();
-    public static News temp = new News();
-    public static boolean restoration = false;
-    public static boolean delete = false;
     public ViewPager2 viewpager;
 
 
 
-    public void setTemp(News temp,boolean restore,boolean delete)
-    {
-       this.delete = delete;
-       this.restoration = restore;
-       this.temp.setAll(temp);
-    }
-
-    public News getTemp(boolean restore,boolean delete)
-    {
-        this.delete = delete;
-        this.restoration = restore;
-        return this.temp;
-    }
-
-    public void rollTobooklist()
-    {
-        viewpager.setCurrentItem(0);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         fragmentsArray.add(bookListFragment);
         fragmentsArray.add(historyFragment);
-        //fragmentsArray.add(new BlankFragment());
-        /*
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.setFragmentResultListener("deleteBook", this, new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                News temp = (News)result.getSerializable("key");
-                News temp2;
-            }
-        });
 
-         */
+
         //创建适配器，并传入fragment
         ViewPaperAdapter viewPaperAdapter = new ViewPaperAdapter(MainActivity.this,fragmentsArray);
         //添加适配器
