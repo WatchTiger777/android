@@ -15,18 +15,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.io.File;
-import java.io.FileInputStream;
+
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class Edit extends AppCompatActivity {
 
     private static final int IMAGE_REQUEST_CODE = 1;
     private static final int RESIZE_REQUEST_CODE = 2;
     private boolean editpng=false;
+    private byte[] png;
+    public void setPng(byte[] png) {
+        this.png = png;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +60,7 @@ public class Edit extends AppCompatActivity {
         textView_isbn.setText(news.isbn);
         imageView_png.setImageResource(news.pngId);
         if(news.hasBitmap){
-           imageView_png.setImageBitmap(news.png);
+           imageView_png.setImageBitmap(BitmapFactory.decodeByteArray(news.png, 0, news.png.length));
         }
         int nowposition = receive.getIntExtra("nowposition",0);
 
@@ -91,6 +94,7 @@ public class Edit extends AppCompatActivity {
                 if(editpng)
                 {
                     yesIntent.putExtra("hasBitmap",true);
+                    yesIntent.putExtra("png",png);
                 }
                 else{
                     yesIntent.putExtra("hasBitmap",news.hasBitmap);
@@ -134,7 +138,7 @@ public class Edit extends AppCompatActivity {
                 case RESIZE_REQUEST_CODE:
                     if (data != null) {
                         try {
-                            showResizeImage(data,this.findViewById(R.id.imageView));
+                            this.setPng(showResizeImage(data,this.findViewById(R.id.imageView)));
                             this.editpng = true;
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
@@ -160,24 +164,28 @@ public class Edit extends AppCompatActivity {
         //设置返回码
         startActivityForResult(intent, RESIZE_REQUEST_CODE);
     }
-    private void showResizeImage(Intent data,ImageView png) throws FileNotFoundException {
+    private byte[] showResizeImage(Intent data,ImageView png) throws FileNotFoundException {
         Bundle extras = data.getExtras();
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
             //裁剪之后设置保存图片的路径
             String fileName = getString(R.string.image);
             //压缩图片
-            storeImage(photo, fileName);
             Drawable drawable = new BitmapDrawable(photo);
             png.setImageDrawable(drawable);
+            return storeImage(photo, fileName);
         }
 
+        byte[] ans = new byte[1];
+        return ans;
 
     }
-    public static void storeImage(Bitmap bitmap, String outPath) throws FileNotFoundException {
+    public static byte[] storeImage(Bitmap bitmap, String outPath) throws FileNotFoundException {
         FileOutputStream os = new FileOutputStream(outPath);
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
-        //??为什么不用flush？？
+        //bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);//压缩位图
+        return baos.toByteArray();//创建分配字节数组
     }
 
 

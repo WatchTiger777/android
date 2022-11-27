@@ -16,7 +16,7 @@ public class News implements Serializable {
     public String month;
     public String isbn ;
     public int pngId;
-    public Bitmap png;
+    public byte[] png;
     public boolean hasBitmap;
 
 
@@ -45,6 +45,7 @@ public class News implements Serializable {
         this.isbn = intent.getStringExtra("isbn");
         this.pngId  = intent.getIntExtra("pngId",R.drawable.ic_launcher_background);
 
+        this.png = intent.getByteArrayExtra("png");
         this.hasBitmap = intent.getBooleanExtra("hasBitmap",false);
     }
 
@@ -61,6 +62,10 @@ public class News implements Serializable {
         go.putExtra("pngId",temp.pngId);
         go.putExtra("nowposition",nowposition);
         go.putExtra("hasBitmap",temp.hasBitmap);
+        if(temp.hasBitmap)
+        {
+            go.putExtra("png",temp.png);
+        }
         //Toast.makeText(Add.this,"新建成功", Toast.LENGTH_SHORT).show();
         //go.setClass(Add.this,MainActivity.class);
         //temp.getmessage(go);

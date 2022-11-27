@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import static android.app.Activity.RESULT_OK;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -206,16 +207,22 @@ public class BookListFragment extends Fragment {
                 //接受来自edit发来的intent
                 case 1:
                     news.getmessage(data);
+
+                    /*
                     String fileName = getString(R.string.image);
                     if(news.hasBitmap)
                     {
+
                         try {
                             FileInputStream bais = new FileInputStream(fileName);
                             news.png = BitmapFactory.decodeStream(bais, null, null);
+
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
                     }
+
+                     */
 
 
                     int tempposition = data.getIntExtra("nowposition",0);
@@ -302,6 +309,10 @@ public class BookListFragment extends Fragment {
             super.onViewRecycled(holder);
         }
 
+        public Bitmap getBitmap(byte[] data){
+            return BitmapFactory.decodeByteArray(data, 0, data.length);//从字节数组解码位图
+        }
+
         @Override
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHoder holder, int position) {
             News news = mNewsList.get(position);
@@ -310,7 +321,7 @@ public class BookListFragment extends Fragment {
             //先setbitmap空的话就是默认drawble图片
             holder.mTitlePng.setImageResource(news.pngId);
             if(news.hasBitmap){
-                holder.mTitlePng.setImageBitmap(news.png);
+                holder.mTitlePng.setImageBitmap(getBitmap(news.png));
             }
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

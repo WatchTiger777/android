@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -287,6 +289,10 @@ public class HistoryFragment extends Fragment {
             super.onViewRecycled(holder);
         }
 
+        public Bitmap getBitmap(byte[] data){
+            return BitmapFactory.decodeByteArray(data, 0, data.length);//从字节数组解码位图
+        }
+
         @Override
         public void onBindViewHolder(@NonNull historyAdapter.MyViewHoder holder, int position) {
             News news = mNewsList.get(position);
@@ -296,7 +302,7 @@ public class HistoryFragment extends Fragment {
             //先setbitmap空的话就是默认drawble图片
             holder.mTitlePng.setImageResource(news.pngId);
             if(news.hasBitmap){
-                holder.mTitlePng.setImageBitmap(news.png);
+                holder.mTitlePng.setImageBitmap(getBitmap(news.png));
             }
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
