@@ -62,9 +62,8 @@ public class News implements Serializable {
         go.putExtra("pngId",temp.pngId);
         go.putExtra("nowposition",nowposition);
         go.putExtra("hasBitmap",temp.hasBitmap);
-        if(temp.hasBitmap)
-        {
-            go.putExtra("png",temp.png);
+        if(temp.hasBitmap) {
+            go.putExtra("png", temp.png);
         }
         //Toast.makeText(Add.this,"新建成功", Toast.LENGTH_SHORT).show();
         //go.setClass(Add.this,MainActivity.class);

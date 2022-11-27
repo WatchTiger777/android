@@ -99,6 +99,8 @@ public class BookListFragment extends Fragment {
                 //edit
                 case 1:
                     Intent gotoEdit = new News().sendmessage(mNewsList.get(nowposition),nowposition);
+                    //表明是edit调用editactivity
+                    gotoEdit.putExtra("action",1);
                     gotoEdit.setClass(getActivity(),Edit.class);
                     startActivityForResult(gotoEdit,1);
                     //startActivity(gotoEdit);
@@ -277,7 +279,9 @@ public class BookListFragment extends Fragment {
                 //跳转到新建页面
                 //setContentView(R.layout.activity_add);
                 Intent gotoAdd = new Intent();
-                gotoAdd.setClass(getActivity(),Add.class);
+                //表明是add button调用editactivity
+                gotoAdd.putExtra("action",2);
+                gotoAdd.setClass(getActivity(),Edit.class);
                 //startActivity(gotoAdd);
                 startActivityForResult(gotoAdd,2);
             }

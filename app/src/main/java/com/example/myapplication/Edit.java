@@ -51,14 +51,17 @@ public class Edit extends AppCompatActivity {
         News news = new News();
         news.getmessage(receive);
         //news.pngId = R.drawable.ic_launcher_foreground;
-        textView_title.setText(news.title);
-        textView_author.setText(news.author);
-        textView_translator.setText(news.translator);
-        textView_publisher.setText(news.publisher);
-        textView_year.setText(news.year);
-        textView_month.setText(news.month);
-        textView_isbn.setText(news.isbn);
-        imageView_png.setImageResource(news.pngId);
+        if(receive.getIntExtra("action",2)==1)
+        {
+            textView_title.setText(news.title);
+            textView_author.setText(news.author);
+            textView_translator.setText(news.translator);
+            textView_publisher.setText(news.publisher);
+            textView_year.setText(news.year);
+            textView_month.setText(news.month);
+            textView_isbn.setText(news.isbn);
+            imageView_png.setImageResource(news.pngId);
+        }
         if(news.hasBitmap){
            imageView_png.setImageBitmap(BitmapFactory.decodeByteArray(news.png, 0, news.png.length));
         }
