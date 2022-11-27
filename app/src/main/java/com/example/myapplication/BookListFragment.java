@@ -207,13 +207,16 @@ public class BookListFragment extends Fragment {
                 case 1:
                     news.getmessage(data);
                     String fileName = getString(R.string.image);
-                    Bitmap getpng ;
-                    try {
-                        FileInputStream bais = new FileInputStream(fileName);
-                        news.png = BitmapFactory.decodeStream(bais, null, null);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                    if(news.hasBitmap)
+                    {
+                        try {
+                            FileInputStream bais = new FileInputStream(fileName);
+                            news.png = BitmapFactory.decodeStream(bais, null, null);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
                     }
+
 
                     int tempposition = data.getIntExtra("nowposition",0);
                     mNewsList.set(tempposition,news);
@@ -304,8 +307,11 @@ public class BookListFragment extends Fragment {
             News news = mNewsList.get(position);
             holder.mTitleTv.setText(news.title);
             holder.mTitleContent.setText(news.author);
+            //先setbitmap空的话就是默认drawble图片
             holder.mTitlePng.setImageResource(news.pngId);
-            holder.mTitlePng.setImageBitmap(news.png);
+            if(news.hasBitmap){
+                holder.mTitlePng.setImageBitmap(news.png);
+            }
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {

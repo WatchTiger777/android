@@ -293,6 +293,11 @@ public class HistoryFragment extends Fragment {
             holder.mTitleTv.setText(news.title);
             holder.mTitleContent.setText(news.author);
             holder.mTitlePng.setImageResource(news.pngId);
+            //先setbitmap空的话就是默认drawble图片
+            holder.mTitlePng.setImageResource(news.pngId);
+            if(news.hasBitmap){
+                holder.mTitlePng.setImageBitmap(news.png);
+            }
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -317,6 +322,7 @@ public class HistoryFragment extends Fragment {
                 mTitleTv = itemView.findViewById(R.id.textView);
                 mTitleContent = itemView.findViewById(R.id.textView2);
                 mTitlePng = itemView.findViewById(R.id.imageView);
+
                 itemView.setOnCreateContextMenuListener(this);
             }
 

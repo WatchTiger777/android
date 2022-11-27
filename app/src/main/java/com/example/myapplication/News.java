@@ -17,21 +17,23 @@ public class News implements Serializable {
     public String isbn ;
     public int pngId;
     public Bitmap png;
+    public boolean hasBitmap;
+
 
     /*
-    public void setAll(News temp) {
+        public void setAll(News temp) {
 
-        this.title = temp.title;
-        this.author = temp.author;
-        this.translator = temp.translator;
-        this.publisher = temp.publisher;
-        this.year = temp.year;
-        this.month = temp.month;
-        this.isbn = temp.isbn;
-        this.pngId = temp.pngId;
-    }
+            this.title = temp.title;
+            this.author = temp.author;
+            this.translator = temp.translator;
+            this.publisher = temp.publisher;
+            this.year = temp.year;
+            this.month = temp.month;
+            this.isbn = temp.isbn;
+            this.pngId = temp.pngId;
+        }
 
-     */
+         */
     public void getmessage(Intent intent)
     {
         this.title = intent.getStringExtra("title");
@@ -43,6 +45,7 @@ public class News implements Serializable {
         this.isbn = intent.getStringExtra("isbn");
         this.pngId  = intent.getIntExtra("pngId",R.drawable.ic_launcher_background);
 
+        this.hasBitmap = intent.getBooleanExtra("hasBitmap",false);
     }
 
     public Intent sendmessage(News temp,int nowposition)
@@ -57,6 +60,7 @@ public class News implements Serializable {
         go.putExtra("isbn",temp.isbn);
         go.putExtra("pngId",temp.pngId);
         go.putExtra("nowposition",nowposition);
+        go.putExtra("hasBitmap",temp.hasBitmap);
         //Toast.makeText(Add.this,"新建成功", Toast.LENGTH_SHORT).show();
         //go.setClass(Add.this,MainActivity.class);
         //temp.getmessage(go);

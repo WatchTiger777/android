@@ -26,6 +26,7 @@ public class Edit extends AppCompatActivity {
 
     private static final int IMAGE_REQUEST_CODE = 1;
     private static final int RESIZE_REQUEST_CODE = 2;
+    private boolean editpng=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +55,10 @@ public class Edit extends AppCompatActivity {
         textView_year.setText(news.year);
         textView_month.setText(news.month);
         textView_isbn.setText(news.isbn);
-        //imageView_png.setImageResource(news.pngId);
-        imageView_png.setImageBitmap(news.png);
+        imageView_png.setImageResource(news.pngId);
+        if(news.hasBitmap){
+           imageView_png.setImageBitmap(news.png);
+        }
         int nowposition = receive.getIntExtra("nowposition",0);
 
         //更换图片
@@ -75,16 +78,6 @@ public class Edit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent yesIntent = new Intent();
-                /*
-                String fileName = getString(R.string.image);
-                Bitmap getpng ;
-                try {
-                    FileInputStream bais = new FileInputStream(fileName);
-                    getpng = BitmapFactory.decodeStream(bais, null, null);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                 */
                 //intent返回数据给主acitivity
                 yesIntent.putExtra("title",textView_title.getText().toString());
                 yesIntent.putExtra("author",textView_author.getText().toString());
@@ -95,6 +88,13 @@ public class Edit extends AppCompatActivity {
                 yesIntent.putExtra("isbn",textView_isbn.getText().toString());
                 yesIntent.putExtra("pngId",R.drawable.ic_launcher_foreground);
                 yesIntent.putExtra("nowposition",nowposition);
+                if(editpng)
+                {
+                    yesIntent.putExtra("hasBitmap",true);
+                }
+                else{
+                    yesIntent.putExtra("hasBitmap",news.hasBitmap);
+                }
 
 
 
@@ -135,7 +135,7 @@ public class Edit extends AppCompatActivity {
                     if (data != null) {
                         try {
                             showResizeImage(data,this.findViewById(R.id.imageView));
-
+                            this.editpng = true;
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }

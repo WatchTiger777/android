@@ -53,7 +53,7 @@ public class Add extends AppCompatActivity {
         buttonNo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                setContentView(R.layout.activity_main);
+                //setContentView(R.layout.activity_main);
                 Add.this.finish();
             }
         });
