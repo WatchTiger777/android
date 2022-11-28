@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">booklist</string>
+    <string name="app_name">BookManager</string>
     <string name="bookData">/data/user/0/com.example.myapplication/files/bookData</string>
     <string name="history">/data/user/0/com.example.myapplication/files/history</string>
     <string name="image">/data/user/0/com.example.myapplication/files/image</string>

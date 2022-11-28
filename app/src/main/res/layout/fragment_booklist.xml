@@ -8,6 +8,7 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
@@ -31,6 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_input_add" />
+
     </RelativeLayout>
 
 </FrameLayout>

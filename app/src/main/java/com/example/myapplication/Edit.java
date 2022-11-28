@@ -92,7 +92,7 @@ public class Edit extends AppCompatActivity {
                 yesIntent.putExtra("year",textView_year.getText().toString());
                 yesIntent.putExtra("month",textView_month.getText().toString());
                 yesIntent.putExtra("isbn",textView_isbn.getText().toString());
-                yesIntent.putExtra("pngId",R.drawable.ic_launcher_foreground);
+                yesIntent.putExtra("pngId",R.drawable.ic_book_foreground);
                 yesIntent.putExtra("nowposition",nowposition);
                 if(editpng)
                 {

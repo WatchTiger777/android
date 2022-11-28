@@ -43,7 +43,7 @@ public class News implements Serializable {
         this.month = intent.getStringExtra("month");
         this.year = intent.getStringExtra("year");
         this.isbn = intent.getStringExtra("isbn");
-        this.pngId  = intent.getIntExtra("pngId",R.drawable.ic_launcher_background);
+        this.pngId  = intent.getIntExtra("pngId",R.drawable.ic_book_foreground);
 
         this.png = intent.getByteArrayExtra("png");
         this.hasBitmap = intent.getBooleanExtra("hasBitmap",false);
@@ -65,6 +65,7 @@ public class News implements Serializable {
         if(temp.hasBitmap) {
             go.putExtra("png", temp.png);
         }
+
         //Toast.makeText(Add.this,"新建成功", Toast.LENGTH_SHORT).show();
         //go.setClass(Add.this,MainActivity.class);
         //temp.getmessage(go);
