@@ -174,8 +174,9 @@ public class Edit extends AppCompatActivity {
             //裁剪之后设置保存图片的路径
             String fileName = getString(R.string.image);
             //压缩图片
-            Drawable drawable = new BitmapDrawable(photo);
-            png.setImageDrawable(drawable);
+            //Drawable drawable = new BitmapDrawable(photo);
+            png.setImageBitmap(photo);
+            //png.setImageDrawable(drawable);
             return storeImage(photo, fileName);
         }
 
@@ -187,7 +188,7 @@ public class Edit extends AppCompatActivity {
         FileOutputStream os = new FileOutputStream(outPath);
         //bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);//压缩位图
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);//压缩位图
         return baos.toByteArray();//创建分配字节数组
     }
 

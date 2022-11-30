@@ -49,6 +49,7 @@ public class BookListFragment extends Fragment {
     public int nowposition = 0;
     //静态类变量
     public List<News> mNewsList = new ArrayList<>();
+    public List<News> mSearchList = new ArrayList<>();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -340,6 +341,7 @@ public class BookListFragment extends Fragment {
         public int getItemCount() {
             return mNewsList.size();
         }
+
 
         class MyViewHoder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
             TextView mTitleTv;

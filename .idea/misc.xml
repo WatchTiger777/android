@@ -6,6 +6,7 @@
         <entry key="..\:/Users/11/AndroidStudioProjects/MyApplication/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/11/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_book_foreground.xml" value="0.282" />
         <entry key="..\:/Users/11/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/11/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_search_foreground.xml" value="0.2725" />
         <entry key="..\:/Users/11/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_add.xml" value="0.26268115942028986" />
         <entry key="..\:/Users/11/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_book_list.xml" value="0.33" />
         <entry key="..\:/Users/11/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_edit.xml" value="0.33" />
@@ -17,6 +18,7 @@
         <entry key="..\:/Users/11/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_history.xml" value="0.1" />
         <entry key="..\:/Users/11/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_main.xml" value="0.1" />
         <entry key="..\:/Users/11/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_scrolling.xml" value="0.13994565217391305" />
+        <entry key="..\:/Users/11/AndroidStudioProjects/MyApplication/app/src/main/res/layout/main_menu.xml" value="0.253125" />
       </map>
     </option>
   </component>
