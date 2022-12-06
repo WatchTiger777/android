@@ -99,9 +99,13 @@ public class Edit extends AppCompatActivity {
                     yesIntent.putExtra("hasBitmap",true);
                     yesIntent.putExtra("png",png);
                 }
-                else{
-                    yesIntent.putExtra("hasBitmap",news.hasBitmap);
+                else
+                {
+                        yesIntent.putExtra("hasBitmap",news.hasBitmap);
+                        yesIntent.putExtra("png",news.png);
+
                 }
+
 
 
 

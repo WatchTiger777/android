@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
             public List<News> find(List<News> mNewsList,String dst){
                List<News> ans = new ArrayList<>();
+               if(mNewsList.isEmpty())  return ans;
                for(int i = 0;i<mNewsList.size();i++)
                {
                    if(mNewsList.get(i).title.equals(dst) || mNewsList.get(i).author.equals(dst) || mNewsList.get(i).isbn.equals(dst) || mNewsList.get(i).translator.equals(dst) || mNewsList.get(i).month.equals(dst) || mNewsList.get(i).publisher.equals(dst)|| mNewsList.get(i).year.equals(dst))
@@ -113,6 +114,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
 //当搜索框内内容改变时执行的方法
             public boolean onQueryTextChange(String newText) {
+
+                //将页面转到显示搜索结果的那一页
+                viewpager.setCurrentItem(0);
+
+                getBookListFragment().searchMode = true;
                 mSearchList.clear();
                 mSearchList.addAll(find(mNewsList,newText));
                 mSearchList.addAll(find(mDeleteList,newText));
@@ -127,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         mysearchview.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-
+                getBookListFragment().searchMode = false;
                 getBookListFragment().mNewsList = mNewsList;
                 getHistoryFragment().mNewsList = mDeleteList;
                 mSearchList.clear();

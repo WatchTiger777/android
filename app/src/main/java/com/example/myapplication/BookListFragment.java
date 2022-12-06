@@ -47,6 +47,7 @@ public class BookListFragment extends Fragment {
     RecyclerView mRecyclerView;
     MyAdapter mMyAdapter ;
     public int nowposition = 0;
+    public boolean searchMode = false;
     //静态类变量
     public List<News> mNewsList = new ArrayList<>();
     public List<News> mSearchList = new ArrayList<>();
@@ -113,6 +114,7 @@ public class BookListFragment extends Fragment {
                     mNewsList.remove(nowposition);
 
                     ((MainActivity)getActivity()).getHistoryFragment().mNewsList.add(deleteBook);
+                    ((MainActivity)getActivity()).getHistoryFragment().save();
                     ((MainActivity)getActivity()).getHistoryFragment().mMyAdapter.notifyDataSetChanged();
                     save();
                     mMyAdapter.notifyDataSetChanged();
@@ -358,6 +360,7 @@ public class BookListFragment extends Fragment {
 
             @Override
             public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+                if(searchMode == true) return;
                 nowposition = getContextMenuPosition();
                 //注意传入的menuInfo为null
                 News mSelectModelUser = mNewsList.get(getContextMenuPosition());
