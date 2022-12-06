@@ -116,6 +116,8 @@ public class Edit extends AppCompatActivity {
 
                 Edit.this.finish();
 
+                Edit.this.finish();
+
 
             }
         });
